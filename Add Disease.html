@@ -1,0 +1,162 @@
+{% extends 'home.html' %}
+{% block body %}
+
+
+
+
+                <div class="card">
+                  <div class="card-body">
+    <form id="form1" name="form1" method="post" enctype="multipart/form-data" action="/adddisease_post">
+
+
+
+        <div class="container">
+
+
+{#            <div class="col-lg-12">#}
+
+
+                <div class="formm">
+                    <div class="grid">
+                        <div class="form-element">
+                            <input type="file" name="fileField" id="file-1" accept="image/*">
+                            <label for="file-1" id="file-1-preview">
+                                <img src="https://bit.ly/3ubuq5o">
+                                <div>
+                                    <span>+</span>
+                                </div>
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+{#            </div>#}
+
+
+                <input type="text" name="textfield" class="form-control" id="name" placeholder="Disease Name"
+                       required="">
+
+                <br>
+                <textarea name="textarea" id="textarea" cols="45" rows="5" class="form-control" placeholder="Description"></textarea>
+
+
+                <br>
+
+                <div class="col-md-6">
+                          <div class="form-group row">
+                          <input type="submit" class="btn btn-outline-success btn-fw" value="ADD"/>
+                          </div>
+                        </div>
+                    <div class="col form-group">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </form>
+                  </div></div>
+    <style>
+
+
+        .formm {
+            margin: 80px 0px 20px;
+            padding: 0px 50px;
+        }
+
+        .formm h2 {
+            text-align: center;
+            color: #acacac;
+            font-size: 40px;
+            font-weight: 400;
+        }
+
+        .formm .grid {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .formm .grid .form-element {
+            width: 150px;
+
+            box-shadow: 0px 0px 20px 5px rgba(100, 100, 100, 0.1);
+        }
+
+        .formm .grid .form-element input {
+            display: none;
+        }
+
+        .formm .grid .form-element img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .formm .grid .form-element div {
+            position: relative;
+            height: 40px;
+            margin-top: -40px;
+            background: rgba(0, 0, 0, 0.5);
+            text-align: center;
+            line-height: 40px;
+            font-size: 13px;
+            color: #f5f5f5;
+            font-weight: 600;
+        }
+
+        .formm .grid .form-element div span {
+            font-size: 40px;
+        }
+
+        .btn-ultra-voilet {
+            background: #654ea3; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #eaafc8, #654ea3); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #eaafc8, #654ea3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            color: #fff;
+            border: 3px solid #eee;
+        }
+
+        .btn-rounded {
+            border-radius: 35px;
+        }
+
+    </style>
+
+    <script>
+        function previewBeforeUpload(id) {
+
+            document.querySelector("#" + id).addEventListener("change", function (e) {
+                if (e.target.files.length == 0) {
+                    return;
+                }
+                var file = e.target.files[0];
+                var url = URL.createObjectURL(file);
+                var v = document.getElementById('file-1').value;
+                alert(v);
+                document.querySelector("#" + id + "-preview div").innerText = file.name;
+                document.querySelector("#" + id + "-preview img").src = url;
+            });
+        }
+
+        previewBeforeUpload("file-1");
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

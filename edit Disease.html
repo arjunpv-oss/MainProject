@@ -1,0 +1,36 @@
+{% extends 'home.html' %}
+{% block body %}
+<body>
+<form id="form1" name="form1" method="post" action="/updatediseases_post">
+  <table class="table table-borderless">
+{#      <tr>#}
+{#          <td colspan="2"><img src="{{ data['disease_image'] }}"  width="1000px" height="1000px"></td>#}
+{#      </tr>#}
+    <tr>
+      <td>Name</td>
+      <td><label for="textfield"></label>
+      <input type="text" name="textfield" id="textfield" value="{{ data['disease_name'] }} " class="form-control"/>
+      <input type="hidden" name="abcd" value="{{ data['disease_id'] }}"/></td>
+    </tr>
+    <tr>
+      <td>Description</td>
+      <td><label for="textarea"></label>
+      <textarea name="textarea" id="textarea" cols="45" rows="5" class="form-control">{{ data['disease_description'] }}</textarea></td>
+    </tr>
+      <tr>
+      <td>Image</td>
+      <td><label for="fileField"></label>
+      <input type="file" name="fileField" id="fileField" class="form-control" /></td>
+    </tr>
+    <tr>
+    <tr>
+        <div class="col-md-6">
+                          <div class="form-group row">
+                              <td>  <input type="submit" class="btn btn-outline-success btn-fw" value="UPDATE"/></td>
+                          </div>
+                        </div>
+        </td>
+    </tr>
+  </table>
+</form>
+{% endblock %}

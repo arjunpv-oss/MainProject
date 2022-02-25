@@ -1,0 +1,92 @@
+{% extends 'home.html' %}
+{% block body %}
+{##}
+{#<body>#}
+{##}
+{#<form action="/viewdoctor_post" method="post">#}
+{#   <table class="table table-borderless">#}
+{#       <tr>#}
+{##}
+{#          <td>#}
+{##}
+{#               <input type="text" name="name" class="form-control" placeholder="Enter to search"/></td>#}
+{#           <td>#}
+{##}
+{#               <button class="btn btn-primary" name="Search">#}
+{##}
+{#                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">#}
+{# <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>#}
+{#                   </svg> Search#}
+{#               </button>#}
+{##}
+{#     </td>#}
+{#            <td width="10"></td>#}
+{#        </tr>#}
+{#   </table>#}
+{##}
+{#    <p>&nbsp;</p>#}
+{#       <table class="table table-striped">#}
+{#        <tr>#}
+{#            <td >S.No</td>#}
+{#            <td>Doctor Name</td>#}
+{#            <td >Gender</td>#}
+{#            <td >Contact</td>#}
+{#            <td >Experience</td>#}
+{#            <td >Qualification</td>#}
+{#            <td >Image</td>#}
+{#            <td>Address</td>#}
+{#            <td></td>#}
+{#            <td></td>#}
+{#            <td></td>#}
+{##}
+{#        </tr>#}
+{##}
+{#        {% for i in data %}#}
+{#            <tr>#}
+{#                <td>{{ loop.index }}</td>#}
+{#                <td>{{ i['d_name'] }}</td>#}
+{#                <td>{{ i['d_gender'] }}</td>#}
+{#                <td>{{ i['d_phone'] }}<br>{{ i['d_email'] }}</td>#}
+{#                <td>&nbsp;{{ i['d_experience'] }}</td>#}
+{#                <td>&nbsp;{{ i['d_qualification'] }}</td>#}
+{#                <td><img src="{{ i['d_image'] }}" width="90" height="90"></td>#}
+{#                <td>{{ i['d_place'] }}<br>{{ i['d_post'] }}<br>{{ i['d_pin'] }}</td>#}
+{##}
+{#                <td><a href="/updatedoctor/{{ i['dlid'] }}" class="btn btn-outline-success">Edit</a></td>#}
+{#                <td>   <a href="/deletedoctor/{{ i['dlid'] }}" class="btn btn-outline-danger">Delete</a></td>#}
+{#                   <td> <a href="/addschedule/{{ i['dlid'] }}" class="btn btn-outline-info">Schedule</a></td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#    </table>#}
+    <div class="container">
+    <div class="row">
+
+        {% for i in data %}
+        <div class="col-sm-4">
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="{{ i['d_image'] }}"width="60" height="200"alt="Card image cap">
+  <div class="card-body">
+    <center><h5 class="card-title">{{ i['d_name'] }}</h5></center>
+{#    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>#}
+  </div>
+  <ul class="list-group list-group-flush">
+    <td class="card-title"><p>Phone: </p>{{ i['d_phone'] }}</td><br><br>
+    <td class="card-title"><p>Email: </p>{{ i['d_email'] }}<br><br>
+    <td class="card-title"><p>Experience: </p>{{ i['d_experience'] }}</td><br><br>
+      <td class="card-title"><p>Qualification: </p>{{ i['d_qualification'] }}</td><br><br>
+      <td class="card-title"><p>Place: </p>{{ i['d_place'] }}</td><br><br>
+  </ul>
+  <div class="card-body">
+    <a href="/updatedoctor/{{ i['dlid'] }}" class="btn btn-outline-success">Edit</a>
+    <a href="/deletedoctor/{{ i['dlid'] }}" class="btn btn-outline-danger">Delete</a>
+      <a href="#" class="btn btn-outline-info">Schedule</a>
+  </div>
+</div>
+        </div>
+        {% endfor %}
+
+
+    </div>
+    </div>
+{% endblock %}
+

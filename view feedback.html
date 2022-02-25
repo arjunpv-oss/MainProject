@@ -1,0 +1,34 @@
+{% extends 'home.html' %}
+{% block body %}
+
+<body>
+<table width="501" border="1">
+<tr><td width="0">
+<td width="518"><label>Date From</label>
+<input type="text" name="date1"/></td>
+<td width="518"><label>Date To</label>
+<input type="text" name="date2" /></td>
+<td width="167"><button>Search</button></td><td width="10"></td></tr>
+</table>
+
+<p>&nbsp;</p>
+<table width="501" height="160" border="1">
+  <tr>
+    <td width="40" height="46">S.No</td>
+    <td width="60">Date</td>
+    <td width="160">User Info</td>
+    <td width="160">User Type</td>
+    <td width="60">Description</td>
+  </tr>
+    {% for i in data %}
+  <tr>
+    <td>{{ loop.index }}&nbsp;</td>
+    <td>&nbsp;{{ i['date'] }}</td>
+    <td><img src="{{ i['image'] }}" width="90" height="90">{{ i['name'] }}</td>
+    <td>{{ i['type'] }}</td>
+    <td>{{ i['content'] }}</td>
+  </tr>
+    {% endfor %}
+</table>
+</body>
+{% endblock %}

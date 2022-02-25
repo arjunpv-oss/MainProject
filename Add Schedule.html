@@ -1,0 +1,39 @@
+{% extends 'home.html' %}
+{% block body %}
+
+<body>
+<form id="form1" name="form1" method="post" action="/addschedule_post">
+  <table width="651" border="1">
+    <tr>
+      <td width="147">Doctor Name</td>
+      <td colspan="2"><label for="textfield"></label>
+      <input type="text"  id="textfield" value="{{ data['d_name'] }}" />
+      <input type="hidden" name="textfield" id="textfield" value="{{ data['dlid'] }}" /></td>
+    </tr>
+    <tr>
+      <td>Slots</td>
+      <td colspan="2"><label for="textfield"></label>
+      <input type="text" name="textfield1" id="textfield" /></td>
+    </tr>
+    <tr>
+      <td rowspan="2">Schedule</td>
+      <td width="122"><label for="textfield2"></label>
+        From Time</td>
+      <td width="360"><input type="time" name="textfield2" id="textfield3" /></td>
+    </tr>
+    <tr>
+      <td>To Time</td>
+      <td><input type="time" name="textfield3" id="textfield2" /></td>
+    </tr>
+     <tr>
+      <td>Date</td>
+      <td colspan="2"><label for="textfield"></label>
+      <input type="date" name="textfield4" id="textfield" /></td>
+    </tr>
+
+     <tr>
+      <td colspan="4" align="center"><input type="submit" name="button" id="button" value="Add" /></td>
+    </tr>
+  </table>
+</form>
+{% endblock %}

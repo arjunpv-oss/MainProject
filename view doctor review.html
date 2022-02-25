@@ -1,0 +1,32 @@
+{% extends 'home.html' %}
+{% block body %}
+<body>
+<form action="/viewdoctorreview_post" method="post">
+<table width="501" border="1">
+<tr><td width="0">
+<td width="518"><label>Name</label>
+<input type="text" name="name" /></td>
+
+<td width="167"><button>Search</button></td><td width="10"></td></tr>
+</table>
+
+<p>&nbsp;</p>
+<table width="501" height="160" border="1">
+  <tr>
+    <td width="40" height="46">S.No</td>
+    <td width="100">Doctor Name</td>
+    <td width="100">Patient Name</td>
+    <td width="60">Review</td>
+  </tr>
+    {% for i in data %}
+  <tr>
+    <td>{{ loop.index }}</td>
+    <td>{{ i['d_name'] }}&nbsp;</td>
+    <td>{{i['patient_name'] }}</td>
+    <td>&nbsp;{{ i['rev_conent'] }}</td>
+  </tr>
+    {% endfor %}
+</table>
+</form>
+</body>
+{% endblock %}
