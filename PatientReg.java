@@ -121,22 +121,11 @@ String gender="";
                                 JSONObject jsonObj = new JSONObject(response);
                                 if (jsonObj.getString("status").equalsIgnoreCase("ok")) {
 
-                                    SharedPreferences sh= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                                    SharedPreferences.Editor ed=sh.edit();
-                                    ed.putString("lid",jsonObj.getString("lid"));
-                                    ed.putString("type",jsonObj.getString("type"));
-                                    ed.commit();
 
-                                    if(jsonObj.getString("type").equalsIgnoreCase("doctor")) {
-
-                                        Intent ij = new Intent(getApplicationContext(), DocDashboard.class);
-                                        startActivity(ij);
-                                    }
-                                    else{
 
                                         Intent ij = new Intent(getApplicationContext(), login.class);
                                         startActivity(ij);
-                                    }
+                                    
                                 }
 
 
