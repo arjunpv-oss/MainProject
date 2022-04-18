@@ -1,0 +1,57 @@
+{% extends 'home.html' %}
+{% block body %}
+<body>
+<form action="/searchschedule" method="post">
+<h3 align="center">DOCTORS SCHEDULE</h3>
+<table >
+
+<tr><td >
+<td width="518">
+<input type="text" name="name" class="form-control" placeholder="Type to search"/></td>
+<td><button class="btn btn-primary" name="Search">
+
+                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">#}
+ <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                   </svg> Search
+               </button></td></tr>
+</table>
+
+<p>&nbsp;</p>
+<table class="table table-borderless">
+  <tr>
+    <td><h3>S.No</h3></td>
+    <td><h3>DOCTOR NAME</h3> </td>
+      <td><h3>FROM TIME</h3></td>
+      <td><h3>TO TIME</h3></td>
+      <td><h3>DATE</h3></td>
+
+      <td></td>
+
+
+   
+    <th colspan="2"></th>
+
+  </tr>
+     {% for i in data %}
+ 
+  <tr>
+    <td>&nbsp;{{ loop.index }}</td>
+
+      <td>{{ i['d_name'] }}</td>
+{#    <td><img src=" {{ i['patient_image'] }}" class="rounded" width="100px" ><a href="{{ i['patient_image'] }}"></a>&nbsp;</td>#}
+
+        <td>{{ i['schedule_ftime'] }}</td>
+        <td>{{ i['schedule_ttime'] }}</td>
+        <td>{{ i['schedule_date'] }}</td>
+
+
+      <td> </td>
+   
+    
+
+
+  </tr>
+    {% endfor %}
+</table>
+</form>
+{% endblock %}
