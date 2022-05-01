@@ -14,19 +14,25 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import static android.graphics.Color.GREEN;
+import static android.graphics.Color.RED;
+import static android.graphics.Color.green;
+
 public class CustomAppointment extends BaseAdapter {
-    String [] schedule_id,schedule_ftime,schedule_ttime;
+    String [] slot_id,slot_number,sts,book;
     private Context context;
 
-    public CustomAppointment(Context applicationContext, String[] schedule_id, String[] schedule_ftime, String[] schedule_ttime)
+    public CustomAppointment(Context applicationContext, String[] slot_id, String[]  slot_number,String[]  book)
     {
         this.context=applicationContext;
-        this.schedule_id=schedule_id;
-        this.schedule_ftime=schedule_ftime;
-        this.schedule_ttime=schedule_ttime;
+        this.slot_id=slot_id;
+        this.slot_number=slot_number;
+        this.book=book;
+
     }
 
 //    @Override
@@ -37,7 +43,7 @@ public class CustomAppointment extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return schedule_ftime.length;
+        return slot_number.length;
     }
 
     @Override
@@ -66,8 +72,38 @@ public class CustomAppointment extends BaseAdapter {
             }
             TextView vv=(TextView) gridView.findViewById(R.id.textView23);
 
+
+
+
 //
-            vv.setText(schedule_ftime[position]);
+
+            vv.setText(slot_number[position]);
+
+            if(book[position].equalsIgnoreCase("filled"))
+            {
+                vv.setEnabled(false);
+                vv.setTextColor(RED);
+            }
+            else {
+                vv.setEnabled(true);
+            }
+
+            vv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SharedPreferences sh=PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor ed=sh.edit();
+
+        ed.putString("slot_id", slot_id[position]);
+        ed.commit();
+
+
+        Toast.makeText(context, "-------"+slot_id[position], Toast.LENGTH_SHORT).show();
+        Intent i=new Intent(context,AppointmentForm.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(i);
+                }
+            });
 //
 
             return gridView;

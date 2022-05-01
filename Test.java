@@ -203,7 +203,7 @@ public class Test extends Activity {
 			                            		if(fid[i].equalsIgnoreCase(lid))
 			    					    		{
 													ChatMessage	message = new ChatMessage();
-													message.setUsername("Me");
+													message.setUsername("You");
 													message.setMessage(msg[i]);
 													message.setDate(new Date());
 													message.setIncomingMessage(false);
@@ -215,7 +215,7 @@ public class Test extends Activity {
 			    					    		else
 			    					    		{
 													ChatMessage	message1 = new ChatMessage();
-													message1.setUsername("Other");
+													message1.setUsername(sh.getString("name",""));
 													message1.setMessage(msg[i]);
 													message1.setDate(new Date());
 													message1.setIncomingMessage(true);

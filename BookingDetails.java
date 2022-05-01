@@ -2,16 +2,12 @@ package com.example.bodyhero;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,81 +18,65 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
-public class Appointment extends AppCompatActivity {
-    String [] slot_id,slot_number,book;
-    Button bt6;
-    GridView ggv;
+public class BookingDetails extends AppCompatActivity implements View.OnClickListener {
+    TextView t1,t2,t3,t4,t5;
+    Button bt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_appointment);
-        bt6=(Button) findViewById(R.id.button6);
-        ggv=(GridView) findViewById(R.id.gv);
-        ggv.setVisibility(View.VISIBLE);
-        
-//        ggv.setOnItemClickListener(this);
+        setContentView(R.layout.activity_booking_details);
 
+        t1=(TextView)findViewById(R.id.textView27);
+        t2=(TextView)findViewById(R.id.textView28);
+        t3=(TextView)findViewById(R.id.textView29);
+        t4=(TextView)findViewById(R.id.textView30);
+        t5=(TextView)findViewById(R.id.textView31);
+        bt=(Button)findViewById(R.id.button8);
+        bt.setOnClickListener(this);
         SharedPreferences sh= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        String hu = sh.getString("ip", "");
-        String url = "http://" + hu + ":5000/and_dates_get_more";
-
-
+        final String hu = sh.getString("ip", "");
+        String url = "http://" + hu + ":5000/and_docviewbookingdetails_post";
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        //  Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
 
                         // response
                         try {
                             JSONObject jsonObj = new JSONObject(response);
                             if (jsonObj.getString("status").equalsIgnoreCase("ok")) {
 
-                                JSONArray js= jsonObj.getJSONArray("data");
-                                slot_id=new String[js.length()];
-                                slot_number=new String[js.length()];
-                                book=new String[js.length()];
-//                                schedule_ttime=new String[js.length()];
+                                t1.setText(jsonObj.getString("patient_name"));
+                                t2.setText(jsonObj.getString("patient_age"));
+                                t3.setText(jsonObj.getString("patient_place"));
+                                t4.setText(jsonObj.getString("patient_phone"));
+                                t5.setText(jsonObj.getString("patient_email"));
+//                                t6.setText(jsonObj.getString("phone"));
+//                                t7.setText(jsonObj.getString("qualification"));
+//                                t8.setText(jsonObj.getString("gender"));
+//                                t9.setText(jsonObj.getString("dob"));
 
-
-                                for(int i=0;i<js.length();i++)
-                                {
-                                    JSONObject u=js.getJSONObject(i);
-                                    slot_id[i]=u.getString("slot_id");
-                                    slot_number[i]=u.getString("slot_number");
-                                    book[i]=u.getString("book");
-//                                    schedule_ttime[i]=u.getString("slot");
-
-
-
-                                }
-
-                                ggv.setAdapter(new CustomAppointment(getApplicationContext(),slot_id,slot_number,book));
 
 
                             }
 
 
                             // }
-//                                else {
-//                                    Toast.makeText(getApplicationContext(), "Invalid username or password", Toast.LENGTH_LONG).show();
-//                                }
+                            else {
+                                Toast.makeText(getApplicationContext(), "Invalid username or password", Toast.LENGTH_LONG).show();
+                            }
 
                         }    catch (Exception e) {
                             Toast.makeText(getApplicationContext(), "Error" + e.getMessage().toString(), Toast.LENGTH_SHORT).show();
@@ -116,15 +96,11 @@ public class Appointment extends AppCompatActivity {
                 SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 Map<String, String> params = new HashMap<String, String>();
 
-                String id=sh.getString("doctor_id","");
-                String sid=sh.getString("schedule_id","");
-                params.put("lid",id);
-                params.put("schedule_id",sid);
+                String id=sh.getString("slot_id","");
+                params.put("slot_id",id);
 //                params.put("password",password);
 
                 return params;
-
-
             }
         };
 
@@ -137,25 +113,14 @@ public class Appointment extends AppCompatActivity {
         requestQueue.add(postRequest);
 
 
-
-
-
-
-
     }
 
 
-//    @Override
-//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        SharedPreferences sh=PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//        SharedPreferences.Editor ed=sh.edit();
-//
-//        ed.putString("slot_id", slot_id[position]);
-//        ed.commit();
-//
-//
-//        Toast.makeText(this, "-------"+slot_id[position], Toast.LENGTH_SHORT).show();
-//        startActivity(new Intent(getApplicationContext(),AppointmentForm.class));
-//    }
-}
 
+    @Override
+    public void onClick(View v) {
+        Intent i =new Intent(getApplicationContext(),DocViewSlots.class);
+        startActivity(i);
+
+    }
+}

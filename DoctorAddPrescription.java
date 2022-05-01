@@ -2,16 +2,13 @@ package com.example.bodyhero;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,37 +20,64 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
-public class Appointment extends AppCompatActivity {
-    String [] slot_id,slot_number,book;
-    Button bt6;
-    GridView ggv;
+public class DoctorAddPrescription extends AppCompatActivity implements View.OnClickListener {
+    TextView t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11;
+    Button bt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_appointment);
-        bt6=(Button) findViewById(R.id.button6);
-        ggv=(GridView) findViewById(R.id.gv);
-        ggv.setVisibility(View.VISIBLE);
-        
-//        ggv.setOnItemClickListener(this);
+        setContentView(R.layout.activity_doctor_add_prescription);
+        bt=(Button)findViewById(R.id.button3);
+        t1=(TextView)findViewById(R.id.textView37);
+        t2=(TextView)findViewById(R.id.textView38);
+        t3=(TextView)findViewById(R.id.textView39);
+        t4=(TextView)findViewById(R.id.textView40);
+        t5=(TextView)findViewById(R.id.textView43);
+        t6=(TextView)findViewById(R.id.textView44);
+        t7=(TextView)findViewById(R.id.textView45);
+        t8=(TextView)findViewById(R.id.textView46);
+        t9=(TextView)findViewById(R.id.textView73);
+        t10=(TextView)findViewById(R.id.textView74);
+        t11=(TextView)findViewById(R.id.textView75);
+
+        bt.setOnClickListener(this);
 
         SharedPreferences sh= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         String hu = sh.getString("ip", "");
-        String url = "http://" + hu + ":5000/and_dates_get_more";
+
+        t1.setText(sh.getString("doccc",""));
+        t2.setText(sh.getString("dqualification",""));
+        t3.setText(sh.getString("d_phone",""));
+        t4.setText(sh.getString("d_email",""));
+        t5.setText(sh.getString("patient_name",""));
+        t6.setText(sh.getString("patient_age",""));
+        t7.setText(sh.getString("patient_place",""));
+        t8.setText(sh.getString("patient_phone",""));
+        t9.setText(sh.getString("presdisease",""));
+        t10.setText(sh.getString("pressymp",""));
+        t11.setText(sh.getString("presmed",""));
+
+
+
+    }
+
+
+
+
+    @Override
+    public void onClick(View v) {
+        SharedPreferences sh= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        String hu = sh.getString("ip", "");
+        String url = "http://" + hu + ":5000/and_patientviewprescription_post";
 
 
 
@@ -62,32 +86,16 @@ public class Appointment extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Toast.makeText(DoctorAddPrescription.this, "===="+response, Toast.LENGTH_SHORT).show();
 
                         // response
                         try {
                             JSONObject jsonObj = new JSONObject(response);
                             if (jsonObj.getString("status").equalsIgnoreCase("ok")) {
+//                                Toast.makeText(getApplicationContext(),"SuccessBookeddddddd",Toast.LENGTH_SHORT).show();
+//                                Intent ij=new Intent(getApplicationContext(),DoctorViewAppointment.class);
+//                                startActivity(ij);
 
-                                JSONArray js= jsonObj.getJSONArray("data");
-                                slot_id=new String[js.length()];
-                                slot_number=new String[js.length()];
-                                book=new String[js.length()];
-//                                schedule_ttime=new String[js.length()];
-
-
-                                for(int i=0;i<js.length();i++)
-                                {
-                                    JSONObject u=js.getJSONObject(i);
-                                    slot_id[i]=u.getString("slot_id");
-                                    slot_number[i]=u.getString("slot_number");
-                                    book[i]=u.getString("book");
-//                                    schedule_ttime[i]=u.getString("slot");
-
-
-
-                                }
-
-                                ggv.setAdapter(new CustomAppointment(getApplicationContext(),slot_id,slot_number,book));
 
 
                             }
@@ -116,15 +124,22 @@ public class Appointment extends AppCompatActivity {
                 SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 Map<String, String> params = new HashMap<String, String>();
 
-                String id=sh.getString("doctor_id","");
-                String sid=sh.getString("schedule_id","");
+                String id=sh.getString("lid","");
+//                String plid=sh.getString("plid","");
+//                String appoint_id=sh.getString("appoint_id","");
+//                String pres_date=sh.getString("pres_date","");
+
+
                 params.put("lid",id);
-                params.put("schedule_id",sid);
-//                params.put("password",password);
+//                params.put("appoint_id",appoint_id);
+//                params.put("plid",plid);
+//                params.put("pres_content",pres_content);
+//                params.put("pres_date",pres_date);
+//                params.put("pres_disease",pres_disease);
+//                params.put("pres_medicine",pres_medicine);
+
 
                 return params;
-
-
             }
         };
 
@@ -137,25 +152,6 @@ public class Appointment extends AppCompatActivity {
         requestQueue.add(postRequest);
 
 
-
-
-
-
-
     }
 
-
-//    @Override
-//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        SharedPreferences sh=PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//        SharedPreferences.Editor ed=sh.edit();
-//
-//        ed.putString("slot_id", slot_id[position]);
-//        ed.commit();
-//
-//
-//        Toast.makeText(this, "-------"+slot_id[position], Toast.LENGTH_SHORT).show();
-//        startActivity(new Intent(getApplicationContext(),AppointmentForm.class));
-//    }
 }
-
