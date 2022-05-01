@@ -4,21 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CustomAppointment">
+    tools:context=".CustomDocViewSlots">
 
     <TextView
         android:id="@+id/textView23"
-        android:layout_width="74dp"
-        android:layout_height="77dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="82dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/nnk"
         android:gravity="center"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
