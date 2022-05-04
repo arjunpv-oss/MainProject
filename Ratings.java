@@ -26,6 +26,7 @@ public class Ratings extends AppCompatActivity implements View.OnClickListener {
     Button submitButton;
     EditText edt;
     RatingBar r;
+    float v1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,14 @@ public class Ratings extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_ratings);
         edt = (EditText) findViewById(R.id.editTextTextPersonName10);
         r = (RatingBar) findViewById(R.id.simpleRatingBar);
-        r.setOnClickListener(this);
+        r.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                v1 = v;
+
+            }
+        });
+
         submitButton=(Button)findViewById(R.id.submitButton);
         submitButton.setOnClickListener(this);
 
@@ -110,10 +118,11 @@ public class Ratings extends AppCompatActivity implements View.OnClickListener {
                 SharedPreferences sh = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 java.util.Map<String, String> params = new java.util.HashMap<String, String>();
 
-
+//                String id=sh.getString("dlid","");
                 params.put("lid", sh.getString("lid", ""));
+                params.put("dlid", sh.getString("dlid", ""));
                 params.put("review", edt.getText().toString());
-                params.put("rating", String.valueOf(rating));
+                params.put("rating", v1+"");
 
                 return params;
             }

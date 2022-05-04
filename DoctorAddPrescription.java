@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +20,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -28,6 +30,8 @@ import java.util.Map;
 public class DoctorAddPrescription extends AppCompatActivity implements View.OnClickListener {
     TextView t1,t2,t3,t4,t5,t6,t7,t8,t9,t10,t11;
     Button bt;
+
+    String[] patient_name,patient_age,patient_phone;
 
 
     @Override
@@ -38,11 +42,11 @@ public class DoctorAddPrescription extends AppCompatActivity implements View.OnC
         t1=(TextView)findViewById(R.id.textView37);
         t2=(TextView)findViewById(R.id.textView38);
         t3=(TextView)findViewById(R.id.textView39);
-        t4=(TextView)findViewById(R.id.textView40);
-        t5=(TextView)findViewById(R.id.textView43);
-        t6=(TextView)findViewById(R.id.textView44);
-        t7=(TextView)findViewById(R.id.textView45);
-        t8=(TextView)findViewById(R.id.textView46);
+//        t4=(TextView)findViewById(R.id.textView40);
+        t5=(TextView)findViewById(R.id.pname);
+        t6=(TextView)findViewById(R.id.presage);
+        t7=(TextView)findViewById(R.id.presplace);
+        t8=(TextView)findViewById(R.id.presphone);
         t9=(TextView)findViewById(R.id.textView73);
         t10=(TextView)findViewById(R.id.textView74);
         t11=(TextView)findViewById(R.id.textView75);
@@ -55,8 +59,8 @@ public class DoctorAddPrescription extends AppCompatActivity implements View.OnC
 
         t1.setText(sh.getString("doccc",""));
         t2.setText(sh.getString("dqualification",""));
-        t3.setText(sh.getString("d_phone",""));
-        t4.setText(sh.getString("d_email",""));
+        t3.setText(sh.getString("dphone",""));
+//        t4.setText(sh.getString("d_email",""));
         t5.setText(sh.getString("patient_name",""));
         t6.setText(sh.getString("patient_age",""));
         t7.setText(sh.getString("patient_place",""));
@@ -95,22 +99,22 @@ public class DoctorAddPrescription extends AppCompatActivity implements View.OnC
 //                                Toast.makeText(getApplicationContext(),"SuccessBookeddddddd",Toast.LENGTH_SHORT).show();
 //                                Intent ij=new Intent(getApplicationContext(),DoctorViewAppointment.class);
 //                                startActivity(ij);
+                                String hu = sh.getString("ip", "");
+                                String url = "http://" + hu + ":5000"+jsonObj.getString("data");
 
-
-
-                            }
-
-
-                            // }
-//                                else {
-//                                    Toast.makeText(getApplicationContext(), "Invalid username or password", Toast.LENGTH_LONG).show();
-//                                }
+Intent bb=new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+startActivity(bb);
+//                                Toast.makeText(getApplicationContext(), "", Toast.LENGTH_LONG).show();
+                                 }
+                                else {
+                                    Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
+                                }
 
                         }    catch (Exception e) {
                             Toast.makeText(getApplicationContext(), "Error" + e.getMessage().toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
-                },
+                    },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -126,13 +130,13 @@ public class DoctorAddPrescription extends AppCompatActivity implements View.OnC
 
                 String id=sh.getString("lid","");
 //                String plid=sh.getString("plid","");
-//                String appoint_id=sh.getString("appoint_id","");
+                String appoint_id=sh.getString("appoint_id","");
 //                String pres_date=sh.getString("pres_date","");
 
 
                 params.put("lid",id);
-//                params.put("appoint_id",appoint_id);
-//                params.put("plid",plid);
+                params.put("appoint_id",appoint_id);
+                params.put("schedule_id",sh.getString("schedule_id",""));
 //                params.put("pres_content",pres_content);
 //                params.put("pres_date",pres_date);
 //                params.put("pres_disease",pres_disease);
